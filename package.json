@@ -1,16 +1,28 @@
 {
   "name": "react-minesweeper",
   "version": "0.1.0",
+  "homepage": "https://ManuelPereira2016.github.io/react-minesweeper",
   "private": true,
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-bootstrap-modal": "^4.0.0",
+    "react-proptypes": "^1.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-js": "react-scripts start",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "deploy": "npm run build && gh-pages -d build",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0",
+    "node-sass-chokidar": "^1.2.2",
+    "npm-run-all": "^4.1.2",
   }
 }
