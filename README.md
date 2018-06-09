@@ -6,7 +6,7 @@ React minesweeper - A reactjs remake version of classic minesweeper game.
 
 Install all dependencies by running `npm install` or `yarn` .
 
-### decisions take
+### Decisions taken
 
 1. Develop an algorithm from scratch, take the needed time to think and develop the needed functions as independant file so it can be implemented as a API in the future more easier.
 
