@@ -1,9 +1,16 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import gameApi from "../../utils/gameApi";
 import Game from "../../components/Game/Game";
 import Square from "../../components/Square/Square";
 
 export default class GameContainer extends Component {
+    static propTypes = {
+        onTimeStop: PropTypes.func.isRequired,
+        onTimeReset: PropTypes.func.isRequired,
+        onTimeRestart: PropTypes.func.isRequired,
+    }
+
     state = {
         showGameOverScreen: false,
         table: {
@@ -42,6 +49,8 @@ export default class GameContainer extends Component {
         let click = e.button === 0 ? "LEFT" : "RIGHT";
 
         if (click === "LEFT") {
+            let isBomb = false;
+
             if (this.firstClick) {
                 this.game.bombsGenerator(id);
 
@@ -51,14 +60,16 @@ export default class GameContainer extends Component {
 
                 this.firstClick = false;
             }
-
-            let isBomb = this.game.checkBomb(id);
+            else {
+                isBomb = this.game.checkBomb(id);
+            }
 
             if (isBomb) {
                 await this.setState({
                     showAllMines: true
                 });
 
+                this.props.onTimeStop();
                 this.setGameOverScreen(true);
             }
             else {
@@ -93,7 +104,7 @@ export default class GameContainer extends Component {
         return false;
     };
 
-    HandleNewGamePress = () => {
+    handleNewGame = () => {
         if (this.game) {
             this.setState({
                 showAllMines: false,
@@ -110,11 +121,13 @@ export default class GameContainer extends Component {
             this.state.table.nMines
         );
 
-        this.firstClick = true;
+        this.props.onTimeRestart();
 
         this.setState({
             isGameRunning: true
         });
+
+        this.firstClick = true;
     };
 
     setGameParameters = payload => {
@@ -134,6 +147,7 @@ export default class GameContainer extends Component {
 
     handleUnlockPress = () => {
         this.game = null;
+        this.props.onTimeReset();
 
         this.setState({
             showAllMines: false,
@@ -141,6 +155,16 @@ export default class GameContainer extends Component {
             flagList: [],
             listBombs: [],
             countSquares: {},
+            isGameRunning: false
+        });
+    }
+
+    quitGameOverScreen = () => {
+        this.setGameOverScreen(false);
+
+        this.game = null;
+
+        this.setState({
             isGameRunning: false
         });
     }
@@ -163,9 +187,9 @@ export default class GameContainer extends Component {
     render() {
         return (
             <Game
-                quitGameOverScreen={() => this.setGameOverScreen(false)}
+                quitGameOverScreen={this.quitGameOverScreen}
                 showGameOverScreen={this.state.showGameOverScreen}
-                onNewGamePress={this.HandleNewGamePress}
+                onNewGamePress={this.handleNewGame}
                 renderSquare={this.renderSquare}
                 isGameRunning={this.state.isGameRunning}
                 setGameParameters={this.setGameParameters}
