@@ -4,22 +4,32 @@ import Game from "../../components/Game/Game";
 export default class GameContainer extends Component {
     state = {
         showGameOverScreen: false,
+        table: {
+            nRows: 9,
+            nColumns: 9,
+            nMines: 9
+        }
     }
 
-    handleSquarePress = e => {
+    handleSquarePress = (e, id) => {
+        e.preventDefault();
+        e.stopPropagation();
+
         let click = e.button === 0 ? "LEFT" : "RIGHT";
 
-        console.log(click);
-
-        return click;
+        return false;
     };
 
     HandleNewGamePress = () => {
         console.log("pressed");
     };
 
-    setGameParameters = () => {
-        console.log("set");
+    setGameParameters = (payload) => {
+        this.setState({
+            table: {
+                ...this.state.table, ...payload
+            }
+        });
     };
 
     setGameOverScreen = toShow => {
@@ -33,6 +43,9 @@ export default class GameContainer extends Component {
             <Game
                 quitGameOverScreen={() => this.setGameOverScreen(false)}
                 showGameOverScreen={this.state.showGameOverScreen}
+                onSquareClick={this.handleSquarePress}
+                setGameParameters={this.setGameParameters}
+                tablePreferences={this.state.table}
             />
         );
     }

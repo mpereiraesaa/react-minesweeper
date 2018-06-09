@@ -7,3 +7,5 @@
   align-items: center;
   justify-content: center;
   cursor: pointer; }
+  .board-square.blank {
+    background-color: #ddd; }
