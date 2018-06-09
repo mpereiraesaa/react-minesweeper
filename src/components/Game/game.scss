@@ -1,6 +1,10 @@
 .game-screen {
     display: flex;
     flex-direction: row;
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+    }
 }
 
 .game-table {
@@ -8,4 +12,8 @@
     width: calc(100% - 200px);
     background-color: silver;
     padding: 20px;
+
+    @media (max-width: 480px) {
+        width: 100%;
+    }
 }

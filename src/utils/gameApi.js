@@ -19,6 +19,13 @@ export default class gameApi {
         });
     }
 
+    load(payload) {
+        this.listBombs = payload.listBombs;
+        this.clearedSquares = payload.clearedSquares;
+        this.countSquares = payload.countSquares;
+        this.flagList = payload.flagList;
+    }
+
     bombsGenerator(exclude) {
         this.listBombs = [];
 

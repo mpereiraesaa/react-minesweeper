@@ -10,6 +10,9 @@
   height: 120px;
   padding: 10px;
   color: white; }
+  @media (max-width: 480px) {
+    .App-header {
+      height: 160px; } }
 
 .App-title {
   text-transform: uppercase;

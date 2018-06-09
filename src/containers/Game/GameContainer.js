@@ -8,7 +8,9 @@ export default class GameContainer extends Component {
     static propTypes = {
         onTimeStop: PropTypes.func.isRequired,
         onTimeReset: PropTypes.func.isRequired,
-        onTimeRestart: PropTypes.func.isRequired
+        onTimeRestart: PropTypes.func.isRequired,
+        onSave: PropTypes.func.isRequired,
+        currentGame: PropTypes.object.isRequired
     };
 
     state = {
@@ -27,13 +29,41 @@ export default class GameContainer extends Component {
     };
 
     componentDidMount() {
-        this.game = new gameApi(
-            this.state.table.nRows,
-            this.state.table.nColumns,
-            this.state.table.nMines
-        );
+        if (this.props.currentGame.hasOwnProperty("not_found")) {
+            this.game = new gameApi(
+                this.state.table.nRows,
+                this.state.table.nColumns,
+                this.state.table.nMines
+            );
 
-        this.firstClick = true;
+            this.firstClick = true;
+        } else {
+            const {
+                nRows,
+                nColumns,
+                nMines,
+                clearedSquares,
+                flagList,
+                listBombs,
+                countSquares
+            } = this.props.currentGame;
+
+            this.game = new gameApi(nRows, nColumns, nMines);
+
+            this.game.load(this.props.currentGame);
+
+            this.setState({
+                table: {
+                    nRows,
+                    nColumns,
+                    nMines
+                },
+                clearedSquares,
+                flagList,
+                listBombs,
+                countSquares
+            });
+        }
     }
 
     isValidSquare = id => {
@@ -124,6 +154,8 @@ export default class GameContainer extends Component {
             flagList,
             countSquares
         });
+
+        this.props.onSave(this.game);
 
         return false;
     };

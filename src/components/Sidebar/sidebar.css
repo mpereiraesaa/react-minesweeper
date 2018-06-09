@@ -2,6 +2,9 @@
   width: 200px;
   background-color: blue;
   height: calc(100vh - 120px); }
+  @media (max-width: 480px) {
+    .sidebar {
+      width: 100%; } }
   .sidebar__btns-container {
     height: 100%;
     display: flex;

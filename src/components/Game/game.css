@@ -1,9 +1,15 @@
 .game-screen {
   display: flex;
   flex-direction: row; }
+  @media (max-width: 480px) {
+    .game-screen {
+      flex-direction: column; } }
 
 .game-table {
   height: calc(100vh - 120px);
   width: calc(100% - 200px);
   background-color: silver;
   padding: 20px; }
+  @media (max-width: 480px) {
+    .game-table {
+      width: 100%; } }

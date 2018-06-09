@@ -12,6 +12,10 @@
   height: 120px;
   padding: 10px;
   color: white;
+
+  @media (max-width: 480px) {
+      height: 160px;
+  }
 }
 
 .App-title {

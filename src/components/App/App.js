@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import GameContainer from "../../containers/Game/GameContainer";
-import logo from "../../logo.svg";
+import { getCurrentGame, saveCurrentGame } from '../../utils/storage';
 import "./App.css";
 
 class App extends Component {
     state = {
-        time: 0
+        time: 0,
     };
+
+    componentWillMount() {
+        this.currentGame = null;
+
+        this.currentGame = getCurrentGame();
+    }
 
     componentDidMount() {
         this.interval = setInterval(() => {
@@ -14,6 +20,24 @@ class App extends Component {
                 time: this.state.time + 1
             });
         }, 1000);
+    }
+
+    onSave = (gameInstance) => {
+        let gameObject = {};
+
+        gameObject = {
+            id: `minesweeper_${new Date().toISOString()}`,
+            listBombs: gameInstance.listBombs,
+            nRows: gameInstance.nRows,
+            nColumns: gameInstance.nColumns,
+            nMines: gameInstance.nMines,
+            clearedSquares: gameInstance.clearedSquares,
+            countSquares: gameInstance.countSquares,
+            flagList: gameInstance.flagList,
+            time: this.state.time
+        }
+
+        saveCurrentGame(gameObject);
     }
 
     resetTime = () => {
@@ -54,6 +78,8 @@ class App extends Component {
                     <h1 className="App-title">Welcome to Minesweeper</h1>
                 </header>
                 <GameContainer
+                    onSave={this.onSave}
+                    currentGame={this.currentGame}
                     onTimeStop={this.handleTimeStop}
                     onTimeReset={this.handleTimeReset}
                     onTimeRestart={this.handleTimeRestart}
