@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Square from "../Square/Square";
 import "./board.css";
 
 export default class Board extends Component {
     static propTypes = {
         nRows: PropTypes.number.isRequired,
         nColumns: PropTypes.number.isRequired,
-        onSquareClick: PropTypes.func.isRequired
+        renderSquare: PropTypes.func.isRequired
     };
 
     renderRows() {
-        const { nRows, nColumns } = this.props;
+        const { nRows, nColumns, renderSquare } = this.props;
 
         let rows = [];
 
@@ -19,11 +18,10 @@ export default class Board extends Component {
             let columns = [];
 
             for (let j = 0; j < nColumns; j++) {
+                let id = `${i}-${j}`;
+
                 columns.push(
-                    <Square
-                        key={`${i}-${j}`}
-                        onSquareClick={this.props.onSquareClick}
-                    />
+                    renderSquare(id)
                 );
             }
 

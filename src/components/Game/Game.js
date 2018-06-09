@@ -9,9 +9,12 @@ export default class Game extends Component {
     static propTypes = {
         showGameOverScreen: PropTypes.bool.isRequired,
         quitGameOverScreen: PropTypes.func.isRequired,
+        onNewGamePress: PropTypes.func.isRequired,
+        isGameRunning: PropTypes.bool.isRequired,
+        renderSquare: PropTypes.func.isRequired,
         setGameParameters: PropTypes.func.isRequired,
+        onUnlockPress: PropTypes.func.isRequired,
         tablePreferences: PropTypes.object.isRequired,
-        onSquareClick: PropTypes.func.isRequired
     };
 
     render() {
@@ -25,12 +28,15 @@ export default class Game extends Component {
                 />
                 <div className="game-table">
                     <Board
-                        onSquareClick={this.props.onSquareClick}
+                        renderSquare={this.props.renderSquare}
                         nRows={nRows}
                         nColumns={nColumns} />
                 </div>
                 <Sidebar
                     tablePreferences={this.props.tablePreferences}
+                    isGameRunning={this.props.isGameRunning}
+                    onUnlockPress={this.props.onUnlockPress}
+                    onNewGamePress={this.props.onNewGamePress}
                     setGameParameters={this.props.setGameParameters}
                 />
             </div>

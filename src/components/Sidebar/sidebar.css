@@ -10,6 +10,8 @@
     flex-direction: column; }
     .sidebar__btns-container label {
       color: #fff; }
+    .sidebar__btns-container .form-control[disabled] {
+      background-color: #bbb; }
     .sidebar__btns-container button {
       text-transform: uppercase;
       width: calc(100% - 20px);
