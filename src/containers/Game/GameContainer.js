@@ -9,6 +9,7 @@ export default class GameContainer extends Component {
         onTimeStop: PropTypes.func.isRequired,
         onTimeReset: PropTypes.func.isRequired,
         onTimeRestart: PropTypes.func.isRequired,
+        onResetCurrentGame: PropTypes.func.isRequired,
         onSave: PropTypes.func.isRequired,
         currentGame: PropTypes.object.isRequired
     };
@@ -214,6 +215,8 @@ export default class GameContainer extends Component {
         this.setGameOverScreen(false);
 
         this.game = null;
+
+        this.props.onResetCurrentGame();
 
         this.setState({
             isGameRunning: false

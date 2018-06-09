@@ -12,6 +12,12 @@ class App extends Component {
         this.currentGame = null;
 
         this.currentGame = getCurrentGame();
+
+        if (!this.currentGame.hasOwnProperty('not_found')) {
+            this.setState({
+                time: this.currentGame.time
+            });
+        }
     }
 
     componentDidMount() {
@@ -40,9 +46,13 @@ class App extends Component {
         saveCurrentGame(gameObject);
     }
 
-    resetTime = () => {
+    onResetCurrentGame = () => {
+        saveCurrentGame(null);
+    }
+
+    resetTime = (val = 0) => {
         this.setState({
-            time: 0
+            time: val
         });
     };
 
@@ -79,6 +89,7 @@ class App extends Component {
                 </header>
                 <GameContainer
                     onSave={this.onSave}
+                    onResetCurrentGame={this.onResetCurrentGame}
                     currentGame={this.currentGame}
                     onTimeStop={this.handleTimeStop}
                     onTimeReset={this.handleTimeReset}
