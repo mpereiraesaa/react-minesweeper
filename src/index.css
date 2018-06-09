@@ -1,9 +1,0 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:light,regular,bold,italic&subset=latin,latin-ext");
-@import url(../node_modules/font-awesome/css/font-awesome.css);
-@import url(styles/vendors/bootstrap.min.css);
-@import url(styles/vendors/bootstrap-theme.min.css);
-@import url(../node_modules/react-bootstrap-modal/lib/css/rbm-patch.css);
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Roboto Condensed", sans-serif !important; }
