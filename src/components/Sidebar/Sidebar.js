@@ -7,7 +7,7 @@ export default class Sidebar extends Component {
             <div className='sidebar'>
                 <div className='sidebar__btns-container'>
                     <button className='btn btn-primary'>New game</button>
-                    <button className='btn btn-primary'>Resume game</button>
+                    <button className='btn btn-primary' disabled={true}>Resume game</button>
                     <div className='form-group'>
                         <label>Columns</label>
                         <input type='number' className='form-control' />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Game from '../Game/Game';
+import GameContainer from '../../containers/Game/GameContainer';
 import logo from '../../logo.svg';
 import './App.css';
 
@@ -11,7 +11,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Minesweeper</h1>
         </header>
-        <Game />
+        <GameContainer />
       </div>
     );
   }

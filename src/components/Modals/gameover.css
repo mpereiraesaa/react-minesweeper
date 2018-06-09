@@ -1,0 +1,13 @@
+.gameover-container {
+  text-align: center; }
+  .gameover-container .modal-content {
+    background-color: #000; }
+  .gameover-container .modal-header, .gameover-container .modal-body, .gameover-container .modal-footer {
+    border: none; }
+  .gameover-container h1 {
+    font-size: 72px; }
+
+.gameover-buttons {
+  text-align: center; }
+  .gameover-buttons button {
+    text-transform: uppercase; }
