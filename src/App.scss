@@ -1,0 +1,87 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 50px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 120px;
+  padding: 10px;
+  color: white;
+}
+
+.App-title {
+    text-transform: uppercase;
+    font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.game-screen {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: blue;
+    height: calc(100vh - 120px);
+
+    &__btns-container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        label {
+            color: #fff;
+        }
+
+        button {
+            text-transform: uppercase;
+            width: calc(100% - 20px);
+            margin: 10px;
+        }
+    }
+}
+
+.game-table {
+    height: calc(100vh - 120px);
+    width: calc(100% - 200px);
+    background-color: silver;
+    padding: 20px;
+
+    &__board {
+        background-color: #eee;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__row {
+        display: flex;
+        margin: 2px 0;
+        flex-direction: row;
+        height: 100%;
+    }
+
+    &__square {
+        flex: 1;
+        background-color: #bdbdbd;
+        margin: 0 2px;
+        border: 1px solid #999;
+    }
+}
