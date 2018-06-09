@@ -1,0 +1,14 @@
+.board {
+    background-color: #eee;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-row {
+    display: flex;
+    margin: 2px 0;
+    flex-direction: row;
+    height: 100%;
+}

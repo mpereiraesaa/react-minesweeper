@@ -1,0 +1,9 @@
+.game-screen {
+  display: flex;
+  flex-direction: row; }
+
+.game-table {
+  height: calc(100vh - 120px);
+  width: calc(100% - 200px);
+  background-color: silver;
+  padding: 20px; }
