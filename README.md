@@ -2,6 +2,8 @@
 
 React minesweeper - A reactjs remake version of classic minesweeper game.
 
+Live at this url: https://manuelpereira2016.github.io/react-minesweeper/
+
 ## Getting Started
 
 Install all dependencies by running `npm install` or `yarn` .
