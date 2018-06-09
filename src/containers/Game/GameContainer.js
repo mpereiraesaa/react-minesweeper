@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import gameApi from "../../utils/gameApi";
 import Game from "../../components/Game/Game";
 import Square from "../../components/Square/Square";
@@ -8,8 +8,8 @@ export default class GameContainer extends Component {
     static propTypes = {
         onTimeStop: PropTypes.func.isRequired,
         onTimeReset: PropTypes.func.isRequired,
-        onTimeRestart: PropTypes.func.isRequired,
-    }
+        onTimeRestart: PropTypes.func.isRequired
+    };
 
     state = {
         showGameOverScreen: false,
@@ -36,13 +36,35 @@ export default class GameContainer extends Component {
         this.firstClick = true;
     }
 
+    isValidSquare = id => {
+        if (this.state.flagList.indexOf(id) >= 0) {
+            return false;
+        }
+
+        if (this.state.countSquares.hasOwnProperty(id)) {
+            return false;
+        }
+
+        if (this.state.clearedSquares.indexOf(id) >= 0) {
+            return false;
+        }
+
+        return true;
+    };
+
     handleSquarePress = async (e, id) => {
         e.preventDefault();
         e.stopPropagation();
 
         if (!this.game) {
-            alert('Please click on NEW GAME after finish editing game parameters.')
+            alert(
+                "Please click on NEW GAME after finish editing game parameters."
+            );
 
+            return false;
+        }
+
+        if (!this.isValidSquare(id)) {
             return false;
         }
 
@@ -59,8 +81,7 @@ export default class GameContainer extends Component {
                 });
 
                 this.firstClick = false;
-            }
-            else {
+            } else {
                 isBomb = this.game.checkBomb(id);
             }
 
@@ -71,25 +92,28 @@ export default class GameContainer extends Component {
 
                 this.props.onTimeStop();
                 this.setGameOverScreen(true);
-            }
-            else {
+            } else {
                 let origAdyacents = this.game.getAdyacents(id);
 
                 let count = this.game.getAdyacentsBombsCount(origAdyacents);
 
                 if (count > 0) {
-                    this.game.countSquares = { ...this.game.countSquares, [id]: count };
-                }
-                else {
+                    this.game.countSquares = {
+                        ...this.game.countSquares,
+                        [id]: count
+                    };
+                } else {
                     if (this.game.clearedSquares.indexOf(id) < 0) {
-                        this.game.clearedSquares = [...this.game.clearedSquares, id];
+                        this.game.clearedSquares = [
+                            ...this.game.clearedSquares,
+                            id
+                        ];
                     }
 
                     this.game.loopAdyacents(origAdyacents);
                 }
             }
-        }
-        else {
+        } else {
             this.game.flagList.push(id);
         }
 
@@ -105,15 +129,14 @@ export default class GameContainer extends Component {
     };
 
     handleNewGame = () => {
-        if (this.game) {
-            this.setState({
-                showAllMines: false,
-                clearedSquares: [],
-                flagList: [],
-                listBombs: [],
-                countSquares: {}
-            });
-        }
+        this.setState({
+            showAllMines: false,
+            clearedSquares: [],
+            flagList: [],
+            listBombs: [],
+            countSquares: {},
+            isGameRunning: true
+        });
 
         this.game = new gameApi(
             this.state.table.nRows,
@@ -122,10 +145,6 @@ export default class GameContainer extends Component {
         );
 
         this.props.onTimeRestart();
-
-        this.setState({
-            isGameRunning: true
-        });
 
         this.firstClick = true;
     };
@@ -157,7 +176,7 @@ export default class GameContainer extends Component {
             countSquares: {},
             isGameRunning: false
         });
-    }
+    };
 
     quitGameOverScreen = () => {
         this.setGameOverScreen(false);
@@ -167,9 +186,9 @@ export default class GameContainer extends Component {
         this.setState({
             isGameRunning: false
         });
-    }
+    };
 
-    renderSquare = (id) => {
+    renderSquare = id => {
         return (
             <Square
                 key={`key_${id}`}
@@ -182,7 +201,7 @@ export default class GameContainer extends Component {
                 onSquareClick={this.handleSquarePress}
             />
         );
-    }
+    };
 
     render() {
         return (
